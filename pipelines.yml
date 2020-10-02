@@ -1,11 +1,11 @@
 pipelines:
-  - name: ggx_pipeline
+  - name: ggx_pipeline1
     steps:
-      - name: install_terragrunt
+      - name: install_terragrunt1
         type: Bash
         configuration:
           inputResources:
-            - name: myrepo
+            - name: myrepo1
           integrations:
             - name: satheeshart # Artifactory integration
           runtime:      
