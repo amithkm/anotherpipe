@@ -1,7 +1,7 @@
 pipelines:
   - name: ggx_pipeline1
     steps:
-      - name: install_terragrunt1
+      - name: install_terragrunt2
         type: PowerShell
         configuration:
           inputResources:
