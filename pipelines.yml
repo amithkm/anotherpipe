@@ -1,47 +1,21 @@
-resources:
-  - name: myrepo
-    type: GitRepo
-    configuration:
-      gitProvider: jfrogpipelines_pipelinesample   # replace with your integration
-      path: amithkm/jfrog-pipelines-docker-sample    # replace with your repository name
-      branches:
-        include: master
-
-  - name: dbp_image_1
-    type: Image
-    configuration:
-      registry: satheeshart      # replace with your artifactory integration
-      sourceRepository: amithkm-docker-virtual   # required if registry is Artifactory
-      imageName: satheeshart-amithkm-docker-virtual.jfrog.io/alpine/terragru # replace with your image path and name
-      imageTag: latest
-      autoPull: true
-
 pipelines:
-  - name: pipeline_dbp
-    configuration:
-      nodePool: default-dynamic-nodepool
+  - name: ggx_pipeline
     steps:
-      - name: docker_build
-        type: DockerBuild
+      - name: install_terragrunt
+        type: Bash
         configuration:
-          affinityGroup: dbp_group
-          dockerFileLocation: .
-          dockerFileName: Dockerfile
-          dockerImageName: satheeshart-amithkm-docker-virtual.jfrog.io/alpine/terragru  # replace with your image path and name
-          dockerImageTag: ${run_number}
           inputResources:
             - name: myrepo
           integrations:
-            - name: satheeshart    # replace with your artifactory integration
-
-      - name: docker_push
-        type: DockerPush
-        configuration:
-          affinityGroup: dbp_group
-          targetRepository: amithkm-docker-virtual
-          integrations:
-            - name: satheeshart    # replace with your artifactory integration
-          inputSteps:
-            - name: docker_build
-          outputResources:
-            - name: dbp_image_1
+            - name: satheeshart # Artifactory integration
+          runtime:      
+            type: image
+            image:
+              custom:
+                name: satheeshart-amithkm-docker-local.jfrog.io/alpine/terragru
+                tag: '15'
+                registry: satheeshart
+                sourceRepository: docker-local
+        execution:
+          onExecute:
+            - echo "hi"
