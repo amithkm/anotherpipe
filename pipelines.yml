@@ -13,7 +13,7 @@ pipelines:
             image:
               custom:
                 name: satheeshart-amithkm-docker-local.jfrog.io/alpine/terragru
-                tag: '15'
+                tag: '11'
                 registry: satheeshart
                 sourceRepository: docker-local
         execution:
