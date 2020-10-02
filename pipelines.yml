@@ -2,7 +2,7 @@ pipelines:
   - name: ggx_pipeline1
     steps:
       - name: install_terragrunt1
-        type: Bash
+        type: ksh
         configuration:
           inputResources:
             - name: myrepo
